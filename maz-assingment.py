@@ -1,19 +1,11 @@
-# -*- coding: utf-8 -*-
-"""
-Spyder Editor
-
-This is a temporary script file.
-"""
-
 import pandas as pd
 import matplotlib.pyplot as plt
 
-# Load your data from the CSV file (replace 'your_data.csv' with your actual file path)
+#get data from from CSV
 file_path = 'C:\\Users\\MAZ YAFAI\\OneDrive\\Desktop\\20110607JSU_Total_VisitorsU.csv'
 data = pd.read_csv(file_path)
 
-# Filter the data for specific countries and series
-countries = ['Afghanistan', 'India', 'Pakistan']
+countries = ['Afghanistan', 'India', 'Pakistan', 'Maldives', 'Sri Lanka']
 series = 'EG.ELC.ACCS.UR.ZS'
 years = ['2003 [YR2003]', '2004 [YR2004]', '2005 [YR2005]', '2006 [YR2006]', '2007 [YR2007]', '2008 [YR2008]']
 
@@ -28,9 +20,9 @@ plt.figure(figsize=(10, 6))
 for country in countries:
     plt.plot(filtered_data.index, filtered_data[country], label=country)
 
-plt.xlabel('Year')
-plt.ylabel('Access to Electricity (%)')
-plt.title('Access to Electricity in Urban Areas Over Time')
+plt.xlabel('Years')
+plt.ylabel('Electricity Percentage')
+plt.title('Electricity in Boom Towns')
 plt.grid(True)
 plt.legend()
 plt.show()
@@ -42,19 +34,16 @@ for country in countries:
     plt.scatter(filtered_data.index, filtered_data[country], label=country)
 
 plt.xlabel('Year')
-plt.ylabel('Access to Electricity (%)')
-plt.title('Access to Electricity in Urban Areas Over Time (Scatter Plot)')
+plt.ylabel('Electricity Percentage')
+plt.title('Electricity in Boom Town Over Time (Scatter Plot)')
 plt.grid(True)
 plt.legend()
 plt.show()
 
 
-
-
-
 # Read the data from the CSV file into a DataFrame
 df = pd.read_csv('C:\\Users\\MAZ YAFAI\\OneDrive\\Desktop\\20230816Rolling12MonthsofCashReceiptsBrokenDownbyMonth1.csv')
-print(df)
+
 # Check if the required column exists
 if 'InvoiceMonth' in df.columns:
     df['InvoiceMonth'] = pd.to_datetime(df['InvoiceMonth'])
@@ -65,28 +54,24 @@ df['MiscAndMilkIndustryCash'] = df['MiscAndMilkIndustryCash'].str.replace(',', '
 df['RadiologicalCash'] = df['RadiologicalCash'].str.replace(',', '').fillna(0).astype(float)
 df['GovernmentCash'] = df['GovernmentCash'].str.replace(',', '').fillna(0).astype(float)
 
-# Line Plot
 
-# # Set the 'Date' column as the index if it exists
+
 if 'InvoiceMonth' in df.columns:
     df.set_index('InvoiceMonth', inplace=True)
 
-# # Create the line plot if there is data to plot
+# Create Bar Plot
 
-
-# Bar Plot
-
-# Create the bar plot if there is data to plot
 if len(df) > 0:
-    ax = df.plot(kind='bar', stacked=True, figsize=(12, 8))
+    colors = ['orange', 'brown', 'red', 'blue']
+    ax = df.plot(kind='bar', stacked=True, figsize=(12, 8), color=colors)
 
-    # Customize the plot
-    ax.set_xlabel('InvoiceMonth')
+    # Custom the plot
+    ax.set_xlabel('Invoice Month')
     ax.set_ylabel('Values')
-    ax.set_title('Bar Plot of Your Data')
+    ax.set_title('12 Months Rolling Cash Receipt BrokenDown')
     ax.legend(title='Columns', loc='upper left')
 
-    # Convert the x-axis labels to years and months by removing the time part (00:00:00)
+    
     x_labels = df.index.strftime('%Y-%m')
     ax.set_xticklabels(x_labels)
 
